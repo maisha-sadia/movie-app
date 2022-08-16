@@ -1,0 +1,70 @@
+<div class="wrapper">
+  <!-- search container -->
+  <div class="search-container">
+    <div class="search-element">
+      <h3>Search Movie:</h3>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search Movie Title ..."
+        id="movie-search-box"
+        (keydown)="searchByTitle($event)"
+      />
+      <div class="search-list" id="search-list">
+        <ng-container *ngFor="let movie of movies$ | async">
+          <!-- list here -->
+          <div
+            class="search-list-item"
+            (click)="addFavouriteMovie(currentUser, movie)"
+          >
+            <div class="search-item-thumbnail">
+              <img [src]="movie.Poster" />
+            </div>
+            <div class="search-item-info">
+              <h3>{{ movie.Title }}2</h3>
+              <p>{{ movie.Year }}</p>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <!-- end of search container -->
+
+  <!-- result container -->
+  <div class="container">
+    <ng-container *ngFor="let user of users$ | async">
+      <div class="result-container">
+        <div class="result-grid" id="result-grid">
+          <!-- movie information here -->
+
+          <div class="movie-info">
+            <h3 class="movie-title">
+              {{ user.forename + " " + user.surname }}
+            </h3>
+            <!-- <div class="search-list" id="search-list"> -->
+            <ng-container *ngFor="let movie of user.favourite_movies">
+              <!-- list here -->
+              <div
+                class="search-list-item"
+                (click)="addFavouriteMovie(user, movie)"
+              >
+                <div class="search-item-thumbnail">
+                  <img [src]="movie.details.Poster" />
+                </div>
+                <div class="search-item-info">
+                  <h3>{{ movie.details.Title }}2</h3>
+                  <p>Plot: {{ movie.details.Plot }}</p>
+                  <p>{{ movie.details.Year }}</p>
+                </div>
+                <button (click)="removeMovie(currentUser, movie.details)">
+                  Remove
+                </button>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

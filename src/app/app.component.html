@@ -1,0 +1,36 @@
+<mat-toolbar color="primary">
+  <span routerLink="/movies">Favourite Movie List</span>
+  <span class="example-spacer"></span>
+  <span class="pull-right">
+    <button
+      *ngIf="currentUser$ | async"
+      mat-stroked-button
+      color="white"
+      (click)="migrateData()"
+    >
+      Migrate Data
+    </button>
+    <button
+      *ngIf="currentUser$ | async"
+      mat-stroked-button
+      color="white"
+      (click)="signOut()"
+    >
+      Sign Out
+    </button>
+    <button
+      *ngIf="!(currentUser$ | async)"
+      mat-stroked-button
+      color="white"
+      routerLink="/sign-in"
+    >
+      Sign In
+    </button>
+  </span>
+  <span class="pull-right">
+    <button mat-stroked-button color="white" routerLink="/add-user">
+      Add User
+    </button>
+  </span>
+</mat-toolbar>
+<router-outlet></router-outlet>
